@@ -1,0 +1,4 @@
+configuration.py
+__pycache__/
+.coverage
+.vscode
