@@ -6,6 +6,10 @@
 
 Library to wrap helper functions for pyodbc in Aptiviti code. Target OS: Windows 10
 
+## Install as module
+
+`python3 -m pip install aptiviti-odbc`
+
 ## Dependencies
 
 First run
