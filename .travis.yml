@@ -18,19 +18,16 @@ script:
 - coverage run -m unittest discover -s tests
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-before_deploy:
-  - git reset HEAD --hard
-  - rm coverage.xml
 deploy:
   provider: pypi
   username: etrintel
-  password:
-    secure: eLQ0mKoW+OTt26oQ72QhbpbXHux7WVPIF8eqKXHbb1FFV6sTyt1iCE59wmqBXD2SAYq9MSmmcM3vMEiOw/vRAkuhqpKgdXeyPwLaGFV+65jZMKY8Pl5PZM29U9YAdE05BLBTj/BrtN/DaxxhSWVLvxW0lajX83UdYaqm9xKCViZfjhwbYAME68j/Ni+3EBCl26iSbG5EjcP+qFcx4PaL9nUdPEjCFjITz+IxkhctwlVsbqdUfj9A0Y3v7G4BET4rR/O/arofotKeLoCOtiB4L6QUlgMVHXm3k3MJ3Mjq7OWZXNlL3vDOXI6X/U7MPi7cMhR9VvSHVojK+Nng5k5SHTMigC09FWL2cScMDOrxeogYUrkadtgxguFccsLz6TzKfdaB41cvNVMpYjMPI7UbUNxJz0K0rFx03t8ebwnJVJirRGSnOIUppsyiecC5BcyeHMzVS1JbUgWltfqEdmCEsOwoVR+R3ucTUbyCor7ww4PzKLbJzDWXrx90q7MKBqGBweC0QpmrzXE8xolOsi32uxEemR02u5iEeKzER7HzwAkKQUlK/obnhQrD/RbuP/ik67dlvG92AEiWLq/3XYYH0Be6AB6vLc3OxGZ/z840nhjOj6tXEjpA55jjPsfGheIcl0xX5bW4feAipTX4LFPkVXhtoVDDcppox548F6Ar6S4=
   skip_existing: true
   distributions: sdist bdist_wheel
   on:
     tags: true
+  password:
+    secure: VViT7KSXxX828wvNNr/akk5zoujKPqBWIPpLs6QXN4r5N8haFks4hGW1lyl3mHMy4tmmu5VboSoqH9lr34BudVA/WkMCFHIJI0rJhu4ySz3t98PUcBHnmI3z2IeYGotw7CVt0ORGdpJcH8DbFWfD4Ht1JHw1mzEe/mNhn1JSYUTpyLu92iMfi/ZGo7FaWRqY4oWmK37qtfKpWVRDeKZXNTVCeH5nVdVaEkpVZsbxy8WDm6aXGDHaF7AdgRyYlTX1Vy61Qyv4SjyIjF8nGEXJtqwMe3tT7hvHxrL0UKEYkdtYzLG+uDlX9Aedx70b2g+V6XRg5P+WacV+4Wswj1igBGZerpx179c2/V60ohaSjBXRsS3/cdBcAGJ3Q/ns8tERMa9/wD+lfd0cRRK7i2kDmrhGELhRPQbxEZGt7XfSE9ZUpOmNOz6uyUeE8LkVhgTeHVSjdAU2z/x+N4QJ4rDYyqBYos//c0rrMjwhK1ixCPHg03uVs2w8xfpJwOnCAMbPWNQqGmg04vPSbGQ3kVM/dYAy1c4Y66xT8aBBPt0xRwQEwV/2k0Mjlp8ObAufwJrumQYK+iU4fMypxhVIQfMNIOZR4A897TnRGrxxAXrg1ag0YfLSnENQMZUfWuuBVknBmnNBG9McoW0S5oOK/Ej4cwJ+chzeGjah0pN6mFik4wM=
 branches:
   only:
   - master
-  - /\d+\.\d+\.\d+/
+  - "/\\d+\\.\\d+\\.\\d+/"
