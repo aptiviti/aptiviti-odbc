@@ -18,6 +18,9 @@ script:
 - coverage run -m unittest discover -s tests
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+before_deploy:
+  - git reset HEAD --hard
+  - rm coverage.xml
 deploy:
   provider: pypi
   username: etrintel
