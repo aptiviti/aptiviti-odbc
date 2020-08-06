@@ -6,3 +6,4 @@ dist
 build
 aptiviti_odbc.egg-info
 aptiviti-odbc/
+aptiviti-odbc.code-workspace
