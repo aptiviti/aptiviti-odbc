@@ -9,12 +9,7 @@ class aptiviti_odbc_connection:
         self.drivers = { 'mssqlserver': 'SQL Server Native Client 11.0' }
         self.placeholders = { 'mssqlserver': '?' }
 
-        self.connection_string = (
-            f"Driver={{{self.drivers[driver]}}};"
-            f"Server={host};"
-            f"UID={username};"
-            f"PWD={password};"            
-        )
+        self.connection_string = f"Driver={{{self.drivers[driver]}}};Server={host};UID={username};PWD={password};"
 
         if database != None:
             self.connection_string += f"database={database}"
