@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='aptiviti-odbc',
-    version='1.0.1',
+    version='1.0.2',
     author='Daniel Fredriksen',
     author_email='df@etr.ai',
     packages=find_packages(),

@@ -1,29 +1,32 @@
-
 language: python
 python:
-  - "3.8"
-
+- '3.8'
 before_install:
-  - curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-  - sudo curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list  | sudo tee -a /etc/apt/sources.list.d/mssql-release.list
-  - sudo apt-get update
-  - sudo ACCEPT_EULA=Y apt-get -y install msodbcsql17
-  - sudo ACCEPT_EULA=Y apt-get -y install mssql-tools
-
+- curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+- sudo curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list  | sudo tee
+  -a /etc/apt/sources.list.d/mssql-release.list
+- sudo apt-get update
+- sudo ACCEPT_EULA=Y apt-get -y install msodbcsql17
+- sudo ACCEPT_EULA=Y apt-get -y install mssql-tools
 install:
-  - echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
-  - echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-  - source ~/.bashrc
-  - sudo apt-get -y install unixodbc-dev
-  - pip install -r requirements.txt
-
+- echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+- echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+- source ~/.bashrc
+- sudo apt-get -y install unixodbc-dev
+- pip install -r requirements.txt
 script:
-  - coverage run -m unittest discover -s tests
-
+- coverage run -m unittest discover -s tests
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-  # safelist
+- bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: pypi
+  username: etrintel
+  password:
+    secure: eLQ0mKoW+OTt26oQ72QhbpbXHux7WVPIF8eqKXHbb1FFV6sTyt1iCE59wmqBXD2SAYq9MSmmcM3vMEiOw/vRAkuhqpKgdXeyPwLaGFV+65jZMKY8Pl5PZM29U9YAdE05BLBTj/BrtN/DaxxhSWVLvxW0lajX83UdYaqm9xKCViZfjhwbYAME68j/Ni+3EBCl26iSbG5EjcP+qFcx4PaL9nUdPEjCFjITz+IxkhctwlVsbqdUfj9A0Y3v7G4BET4rR/O/arofotKeLoCOtiB4L6QUlgMVHXm3k3MJ3Mjq7OWZXNlL3vDOXI6X/U7MPi7cMhR9VvSHVojK+Nng5k5SHTMigC09FWL2cScMDOrxeogYUrkadtgxguFccsLz6TzKfdaB41cvNVMpYjMPI7UbUNxJz0K0rFx03t8ebwnJVJirRGSnOIUppsyiecC5BcyeHMzVS1JbUgWltfqEdmCEsOwoVR+R3ucTUbyCor7ww4PzKLbJzDWXrx90q7MKBqGBweC0QpmrzXE8xolOsi32uxEemR02u5iEeKzER7HzwAkKQUlK/obnhQrD/RbuP/ik67dlvG92AEiWLq/3XYYH0Be6AB6vLc3OxGZ/z840nhjOj6tXEjpA55jjPsfGheIcl0xX5bW4feAipTX4LFPkVXhtoVDDcppox548F6Ar6S4=
+  skip_existing: true
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
 branches:
   only:
   - master

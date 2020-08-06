@@ -10,6 +10,10 @@ Library to wrap helper functions for pyodbc in Aptiviti code. Target OS: Windows
 
 `python3 -m pip install aptiviti-odbc`
 
+Then you can
+
+`from aptiviti_odbc import aptiviti_odbc_connection`
+
 ## Dependencies
 
 First run
@@ -25,6 +29,8 @@ Don't forget to increment the version number in `setup.py `prior to building.
 `python3 .\setup.py bdist_wheel` to create the `dist` folder containing the package build.
 
 ## Deploy to pypi
+
+TravisCI is configured to automatically deploy to PyPi on pushed tag.
 
 Increment the version number `setup.py`.
 run `python3 -m twine upload .\dist\*` to upload to pypi. Currently this package is deployed to the `etrintel` pypi account.
