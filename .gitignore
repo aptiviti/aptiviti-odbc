@@ -2,3 +2,7 @@ configuration.py
 __pycache__/
 .coverage
 .vscode
+dist
+build
+aptiviti_odbc.egg-info
+aptiviti-odbc/
