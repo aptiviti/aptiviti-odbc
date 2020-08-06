@@ -30,6 +30,8 @@ Don't forget to increment the version number in `setup.py `prior to building.
 
 ## Deploy to pypi
 
+TravisCI is configured to automatically deploy to PyPi on pushed tag.
+
 Increment the version number `setup.py`.
 run `python3 -m twine upload .\dist\*` to upload to pypi. Currently this package is deployed to the `etrintel` pypi account.
 
