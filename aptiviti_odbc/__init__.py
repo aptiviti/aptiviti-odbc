@@ -1,6 +1,7 @@
 import pyodbc
 import pandas
 import math
+import re
 
 class aptiviti_odbc_connection:
     def __init__(self, host, username, password, database=None, driver='mssqlserver', batch_limit=1000):
@@ -69,3 +70,16 @@ class aptiviti_odbc_connection:
             results = self.query(sql, parameters)
             combined_results = pandas.concat([combined_results, results])
         return combined_results
+
+    def dynamic_update(self, sql_template, column_dictionary, extra_parameters = []):
+        column_names = column_dictionary.keys()
+        parameters = list(column_dictionary.values())        
+        keyvalue_pair = []
+        for key in column_names:
+            keyvalue_pair.append(f'[{self.sanitize(key)}]=?')
+        update_sql = sql_template.replace('**keyvalues**', ','.join(keyvalue_pair))
+        parameters += extra_parameters
+        self.mutate(update_sql, parameters=parameters)
+
+    def sanitize(self, value):
+        return re.sub(r"[^a-zA-Z0-9 ]", "", value)

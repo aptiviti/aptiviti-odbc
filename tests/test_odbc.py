@@ -69,5 +69,21 @@ class TestOdbc(unittest.TestCase):
       self.assertTrue(mock_pandas.read_sql.call_count, 1)
       self.assertEqual(mock_pandas.read_sql.call_args[0][0], 'dummy sql ?')
 
+   def test_dynamic_update(self, mock_pandas, mock_pyodbc):
+      database_connection = aptiviti_odbc_connection('mockhost', 'mockuser', 'mockpassword', 'mockdatabase')
+      mock_key_dict = {
+         'mockcolumn': 'mockvalue'
+      }
+      database_connection.dynamic_update('dummy sql **keyvalues** WHERE id=?', mock_key_dict, ['mockguid'])
+      self.assertTrue(database_connection.cursor.execute.called)
+      self.assertTrue(database_connection.cursor.execute.call_count, 1)      
+      self.assertEqual(database_connection.cursor.execute.call_args[0][0], "dummy sql [mockcolumn]=? WHERE id=?")
+      self.assertEqual(database_connection.cursor.execute.call_args[0][1], ['mockvalue', 'mockguid'])
+
+   def test_sanitize(self, mock_pandas, mock_pyodbc):
+      database_connection = aptiviti_odbc_connection('mockhost', 'mockuser', 'mockpassword', 'mockdatabase')
+      unsanitary_data = "1209iogjO-0123+20--29381-19soa,x,lasokql\/-@]1\\1]\]\'\""
+      self.assertEqual(database_connection.sanitize(unsanitary_data), '1209iogjO0123202938119soaxlasokql11')
+
 if __name__ == '__main__':
    unittest.main()
