@@ -4,13 +4,12 @@ import math
 import re
 
 class aptiviti_odbc_connection:
-    def __init__(self, host, username, password, database=None, driver='mssqlserver', batch_limit=1000):
+    def __init__(self, host, username, password, database=None, driver='SQL Server Native Client 11.0', placeholder='mssqlserver', batch_limit=1000):
         self.BATCH_LIMIT = batch_limit
         self.driver = driver
-        self.drivers = { 'mssqlserver': 'SQL Server Native Client 11.0' }
         self.placeholders = { 'mssqlserver': '?' }
-
-        self.connection_string = f"Driver={{{self.drivers[driver]}}};Server={host};UID={username};PWD={password};"
+        self.placeholder = placeholder
+        self.connection_string = f"Driver={{{driver}}};Server={host};UID={username};PWD={password};"
 
         if database != None:
             self.connection_string += f"database={database}"
@@ -19,7 +18,7 @@ class aptiviti_odbc_connection:
         self.cursor = self.connection.cursor()
     
     def get_placeholder(self):
-        return self.placeholders[self.driver]
+        return self.placeholders[self.placeholder]
 
     def query(self, sql, parameters=None):
         return pandas.read_sql(sql, self.connection, params=parameters)
